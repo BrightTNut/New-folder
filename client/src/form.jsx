@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+
 function Form() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -46,25 +47,28 @@ function Form() {
     const { image, ...dataToSend } = formData;
 
     try {
-       const response = await axios.post("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/cards", dataToSend, {
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
+      const response = await axios.post("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/cards", dataToSend, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // Add this if your server is expecting credentials
+      });
 
-      if (response.ok) {
+      if (response.status === 201) {
         alert("Form submitted successfully");
       } else {
-        const errorData = await response.json();
-        alert(`Error submitting form: ${errorData.error}`);
+        alert(`Error submitting form: ${response.data.message}`);
       }
     } catch (error) {
+      console.error("Error submitting form:", error.message);
       alert("Error submitting form");
     }
   };
+
   const Schoollist = () => {
     navigate("/students", { state: formData });
   };
+
   return (
     <div className="flex bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 items-center justify-center h-screen bg-blue-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
