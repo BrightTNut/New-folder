@@ -5,13 +5,21 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+
 app.use(
   cors({
     origin: "https://schoolid-beta.vercel.app",
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
   })
 );
+
+// Handling preflight requests
+app.options("*", cors({
+  origin: "https://schoolid-beta.vercel.app",
+  methods: ["POST", "GET", "OPTIONS"],
+  credentials: true,
+}));
 
 // MongoDB Connection
 mongoose
