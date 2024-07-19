@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://schoolid-beta.vercel.app"],
+    origin: "https://schoolid-beta.vercel.app",
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -24,11 +24,6 @@ mongoose
 
 // Model
 const FormData = require("./Model"); // Assuming your model file is named Model.js
-
-// Start Server
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
 
 // Routes
 app.post("/cards", async (req, res) => {
@@ -63,7 +58,6 @@ app.post("/cards", async (req, res) => {
   }
 });
 
-// Add this route to fetch all student data
 app.get("/students", async (req, res) => {
   try {
     const students = await FormData.find();
@@ -72,4 +66,10 @@ app.get("/students", async (req, res) => {
     console.error("Error fetching student data:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+// Start Server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
