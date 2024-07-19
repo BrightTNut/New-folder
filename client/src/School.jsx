@@ -7,7 +7,7 @@ const School = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-       const response = await axios.post("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/cards", dataToSend, {
+       const response = await axios.post("https://backendodidcard.vercel.app/students", dataToSend, {
       headers: {
         "Content-Type": "application/json",
       }
