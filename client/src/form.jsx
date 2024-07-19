@@ -46,7 +46,7 @@ function Form() {
     const { image, ...dataToSend } = formData;
 
     try {
-      const response = await fetch("https://schoolidcardgenrator-fh9tm1g6d-brighttnuts-projects.vercel.app/cards", {
+      const response = await fetch("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/cards", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
