@@ -6,20 +6,29 @@ const app = express();
 // Middlewares
 app.use(express.json());
 
+const allowedOrigins = ["https://schoolids.vercel.app"];
 app.use(
   cors({
-    origin: "https://schoolids.vercel.app",
-    methods: ["POST", "GET", "OPTIONS"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
 );
 
-// Handling preflight requests
-app.options("*", cors({
-  origin: "https://schoolid-beta.vercel.app",
-  methods: ["POST", "GET", "OPTIONS"],
-  credentials: true,
-}));
+// Handle preflight requests
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "https://schoolid-beta.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(204);
+});
 
 // MongoDB Connection
 mongoose
