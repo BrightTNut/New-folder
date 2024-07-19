@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+
 const School = () => {
   const [students, setStudents] = useState([]);
   const [error, setError] = useState("");
@@ -7,11 +7,7 @@ const School = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-       const response = await axios.post("https://backendodidcard.vercel.app/students", dataToSend, {
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
+        const response = await fetch("http://localhost:3000/students");
         if (response.ok) {
           const data = await response.json();
           setStudents(data);
