@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const School = () => {
   const [students, setStudents] = useState([]);
@@ -7,13 +8,8 @@ const School = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch("https://backendodidcard.vercel.app/students");
-        if (response.ok) {
-          const data = await response.json();
-          setStudents(data);
-        } else {
-          setError("Error fetching students");
-        }
+        const response = await axios.get("https://backendodidcard.vercel.app/students");
+        setStudents(response.data);
       } catch (error) {
         setError("Error fetching students");
       }
@@ -37,7 +33,7 @@ const School = () => {
       {error && <p className="text-red-500 text-sm">{error}</p>}
       {Object.keys(groupedStudents).map((school) => (
         <div key={school} className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">School Name : {school}</h2>
+          <h2 className="text-2xl font-bold mb-4">School Name: {school}</h2>
           <table className="min-w-full bg-white border border-gray-300">
             <thead>
               <tr>
