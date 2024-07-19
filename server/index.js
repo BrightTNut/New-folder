@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "",
+    origin: "https://schoolids.vercel.app/",
     methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
   })
