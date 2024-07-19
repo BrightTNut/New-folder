@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import axios from 'axios';
 const School = () => {
   const [students, setStudents] = useState([]);
   const [error, setError] = useState("");
@@ -7,7 +7,11 @@ const School = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/students");
+       const response = await axios.post("https://schoolidcardgenerator-1q3qnaqum-brighttnuts-projects.vercel.app/cards", dataToSend, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
         if (response.ok) {
           const data = await response.json();
           setStudents(data);
