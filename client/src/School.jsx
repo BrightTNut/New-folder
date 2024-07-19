@@ -7,7 +7,7 @@ const School = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch("http://localhost:3000/students");
+        const response = await fetch("https://schoolidcardgenerator-brighttnuts-projects.vercel.app//students");
         if (response.ok) {
           const data = await response.json();
           setStudents(data);
